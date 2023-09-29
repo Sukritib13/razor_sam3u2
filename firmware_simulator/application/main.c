@@ -29,7 +29,10 @@ Main Program
 
 void main(void)
 {
-
+  u32 u32UselessVariableForExample;
+  u32 au32BigArray[] = {5, 4, 3, 2, 1};
+  DrinkType aeDrinkArray[3] = {BEER, SHOOTER};
+  
   while(1)
   {
     
