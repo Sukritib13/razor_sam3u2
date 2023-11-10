@@ -95,6 +95,25 @@ void UserApp1Initialize(void)
   /* If good initialization, set state to Idle */
   if( 1 )
   {
+    LedOff(YELLOW);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(ORANGE);
+    LedOff(BLUE);
+    LedOff(PURPLE);
+    LedOff(RED);
+    LedOff(WHITE);
+    
+    LedOn(BLUE);
+    LedOn(GREEN);
+    LedOn(RED);
+    
+    /*LedOn(BLUE);
+    LedToggle(PURPLE);
+    LedBlink(RED, LED_2HZ);
+    LedPWM(WHITE, LED_PWM_5);*/
+    
+    
     UserApp1_pfStateMachine = UserApp1SM_Idle;
   }
   else
@@ -140,6 +159,101 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
+    static u16 u16BlinkCounter = 0;
+    static u8 u8Counter = 0;
+    static u8 u8ColorIndex = 0;
+    
+    u16BlinkCounter++;
+    if(u16BlinkCounter == 250){
+      u16BlinkCounter = 0;
+      
+      u8Counter++;
+      if(u8Counter == 16){
+        u8Counter = 0;
+      }
+      
+      
+      /*u16 u16var = 0x01;
+      while (u8Counter & u16var){
+        u16var = u16var << 1;
+        
+      }*/
+        
+       
+      if(u8Counter & 0x01){
+        LedOn(RED);
+      } else{
+        LedOff(RED);
+      }
+      
+      if(u8Counter & 0x02){
+        LedOn(ORANGE);
+      } else{
+        LedOff(ORANGE);
+      }
+      
+      if(u8Counter & 0x04){
+        LedOn(YELLOW);
+      } else{
+        LedOff(YELLOW);
+      }
+      
+      if(u8Counter & 0x08){
+        LedOn(GREEN);
+      } else{
+        LedOff(GREEN);
+      }
+      
+      u8ColorIndex++;
+      if(u8ColorIndex == 7){
+        u8ColorIndex = 0;
+      }
+      
+      switch (u8ColorIndex){
+      case 0:
+        LedOn(LCD_RED);
+        LedOn(LCD_GREEN);
+        LedOn(LCD_BLUE);
+        break;
+        
+      case 1:
+        LedOn(LCD_RED);
+        LedOn(LCD_BLUE);
+        break;
+        
+      case 2:
+        LedOn(LCD_RED);
+        LedOn(LCD_GREEN);
+        break;
+        
+      case 3:
+        LedOn(LCD_GREEN);
+        LedOn(LCD_BLUE);
+        break;
+        
+      case 4:
+        LedOn(LCD_RED);
+        LedOn(LCD_BLUE);
+        break;
+        
+      case 5:
+        LedOn(LCD_RED);
+        break;
+        
+      case 6:
+        LedOn(LCD_GREEN);
+        break;
+        
+      case 7: 
+        LedOn(LCD_BLUE);
+        break;
+      }
+        
+      
+      
+      
+      LedToggle(PURPLE);
+    }
     
 } /* end UserApp1SM_Idle() */
      
